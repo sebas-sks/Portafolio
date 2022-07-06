@@ -1,79 +1,64 @@
 var btn__submit = document.getElementById("btn__submit");
 btn__submit.addEventListener("click", function(event){
     event.preventDefault();
-    var form = document.getElementById("formcontato__form");
-    
-    
-    validacionFormulario();
 
-});
-
-function validacionFormulario() {
-    
     var nombre = document.getElementById("txt-nom").value;
     var email = document.getElementById("txt-email").value;
     var asunto = document.getElementById("txt-asunto").value;
     var mensaje = document.getElementById("mensagem").value;
-        
-    if(validarTextos(nombre)){        
-        if(validarCorreo(email)){
-            if(validarTextos(asunto)){
-                if(validarMensaje(mensaje)){
-                    console.log("el mensaje esta bien");
-                }else{
-                    console.log("El asunto no es valido");
-                }                
-            }else{
-                
-            }
+    var span = document.getElementById("mensajes--errores");
 
-        }else {
-            console.log("Correo incorrecto");
-        }
-    }else{
-        console.log("error");
+    var form = document.querySelector("#formcontato__form");        
+    var errores = validarForm(nombre, email, asunto, mensaje);
+    if(errores.length){
+        mostrarMensajes(errores);
+        return;
     }
-}
+    
+    span.classList.add("mensajes--enviado");
+    span.classList.remove("mensajes--errores");    
 
-function validarTextos(txt){    
-    var tst = false;
-    if(txt.length == 0){
-        console.log("no se aceptan vacios")
-    }else{
-        if(txt.length >= 50){
-            console.log("nombre muy largo");
-        }else{
-            tst = true;
-        }        
-    }
-    return tst;
-}
+    span.innerHTML = "Mensaje Enviado con exito";
+    form.reset();
+});
 
-function validarMensaje(menss) {
-    var tst = false;
-    if(menss.length == 0){
-        console.log("No se aceptan vacios");
-    }else if(menss.length >= 300){
-        console.log("Mensaje demasiado largo");
-    }else{
-        console.log("Mensaje correcto");
-        tst = true;
-    }
-    return tst;
-}
-
-function validarCorreo(email){
-    var tst = false;
+function validarForm(nombre, email, asunto, mensaje){
+    var errores = [];
     var emailRegex = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;    
-    if(email.length <= 0){
-        console.log("El campo no puede estar vacio");
-    }else {
-        if(emailRegex.test(email)){
-            console.log("paso");                        
-            tst = true;
-        }else{
-            console.log("El correo no es valido");            
-        }
+    if(nombre.length <= 0) {
+        errores.push("Por favor, escriba su nombre");
+    }    
+    if(nombre.length >= 50) {
+        errores.push("Error, El nombre no debe exceder los 50 caracteres");
     }
-    return tst;
+    if(email.length <= 0) {
+        errores.push("Por favor, ingrese un email");
+    }
+    if(!emailRegex.test(email)) {
+        errores.push("Error, ingrese un correo valido");
+    }
+    if(asunto.length <= 0) {
+        errores.push("Por favor, escriba el asunto");
+    }    
+    if(asunto.length >= 50) {
+        errores.push("Error, El asunto no debe exceder los 50 caracteres");
+    }
+    if(mensaje.length <= 0) {
+        errores.push("Por favor, escribe un mensaje");        
+    }
+    if(mensaje.length>=300) {
+        errores.push("Error, el mensaje es demasiado largo");
+    }
+    return errores;
+}
+
+function mostrarMensajes(errores) {
+    var span = document.getElementById("mensajes--errores");
+    span.innerHTML = "";
+    errores.forEach(function(error){
+        var p = document.createElement("p");
+        p.textContent = error;
+        p.classList.add("mensajes--errores");
+        span.appendChild(p);
+    });
 }

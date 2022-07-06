@@ -152,7 +152,7 @@
                 <div class="hobbies__box">
                     <ul>
                         <li class="hobbies__img"> <img src="assets/auto.png" alt=""> </li>
-                        <li class="hobbies__name">Tomar fotos</li>
+                        <li class="hobbies__name">Conducir</li>
                     </ul>
                 </div>
         </div>
@@ -229,15 +229,16 @@
                     <h2 class="formcontato__title">Contacto</h2>
                     <h3 class="formcontato__subtext">¿Quieres contactarme?</h3>
                     <h3 class="formcontato__subtext">Complete el siguiente formulario y me pondré en contacto con usted lo antes posible. </h3>
-                    <form class="formcontato__form" name="form">
+                    <form id="formcontato__form" class="formcontato__form" name="form">
                         <label class="lbl-control" for="txt-nom">Nombre:</label>  
-                        <input class="formcontato__input" id="txt-nom" type="text" name="nombre">                                              
+                        <input class="formcontato__input" id="txt-nom" type="text" name="nombre">                          
                         <label class="lbl-control" for="txt-email">Email:</label>
-                        <input class="formcontato__input" id="txt-email" type="email" name="email">                        
+                        <input class="formcontato__input" id="txt-email" type="email" name="email">                                                
                         <label class="lbl-control" for="txt-asunto">Asunto:</label>
-                        <input class="formcontato__input" id="txt-asunto" type="text" name="asunto">                        
+                        <input class="formcontato__input" id="txt-asunto" type="text" name="asunto">                                                
                         <label class="lbl-control" for="mensagem">Mensaje:</label>
                         <textarea class="formcontato__textarea" rows="5" cols="40" id="mensagem" name="mensaje"></textarea>                        
+                        <span id="mensajes--errores"></span>                        
                         <button id="btn__submit" type="submit" class="formcontato__botao">Enviar mensaje</button>
                     </form>
                 </div>
